@@ -8,7 +8,9 @@ import com.example.collectionBox.model.FundraisingEvent;
 import com.example.collectionBox.model.MoneyEntry;
 import com.example.collectionBox.repository.CollectionBoxRepository;
 import com.example.collectionBox.repository.FundraisingEventRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,15 @@ public class CollectionBoxService {
         CollectionBox box = boxRepo.findById(boxId)
             .orElseThrow(() -> new NoSuchElementException("Box not found"));
 
+        double amount = req.getAmount();
+
+        double scaled = amount * 100;
+        if (Math.floor(scaled) != scaled) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "To many decimal places, maximum is 2"
+            );
+        }
+
         MoneyEntry entry = box.getEntries().stream()
             .filter(e -> e.getCurrency() == req.getCurrency())
             .findFirst()
@@ -80,8 +91,7 @@ public class CollectionBoxService {
                 return newEntry;
             });
 
-        entry.setAmount(entry.getAmount() + req.getAmount());
-
+        entry.setAmount(entry.getAmount() + amount);
         boxRepo.save(box);
 
         return toDto(box);
@@ -95,12 +105,13 @@ public class CollectionBoxService {
             throw new IllegalStateException("Box is not assigned to any event");
         }
 
-        long totalConverted = box.getEntries().stream()
-            .mapToLong(entry -> {
+        double rawSum = box.getEntries().stream()
+            .mapToDouble(entry -> {
                 double rate = RATES.get(entry.getCurrency()).get(ev.getCurrency());
-                return Math.round(entry.getAmount() * rate);
-            })
-            .sum();
+                return entry.getAmount() * rate;
+            }).sum();
+
+        double totalConverted = Math.round(rawSum * 100.0) / 100.0;
 
         ev.setBalance(ev.getBalance() + totalConverted);
         eventRepo.save(ev);

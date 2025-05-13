@@ -7,11 +7,11 @@ public class EventResponse {
     private Long id;
     private String name;
     private Currency currency;
-    private long balance;
+    private double balance;
 
     public EventResponse() {}
 
-    public EventResponse(Long id, String name, Currency currency, long balance) {
+    public EventResponse(Long id, String name, Currency currency, double balance) {
         this.id = id;
         this.name = name;
         this.currency = currency;
@@ -42,11 +42,11 @@ public class EventResponse {
         this.currency = currency;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

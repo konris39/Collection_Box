@@ -22,11 +22,11 @@ public class MoneyEntry {
 
     @NotNull
     @Column(name = "amount", nullable = false)
-    private long amount;
+    private double amount;
 
     public MoneyEntry() {}
 
-    public MoneyEntry(Long id, CollectionBox box, Currency currency, long amount) {
+    public MoneyEntry(Long id, CollectionBox box, Currency currency, double amount) {
         this.id = id;
         this.box = box;
         this.currency = currency;
@@ -57,11 +57,11 @@ public class MoneyEntry {
         this.currency = currency;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }

@@ -21,11 +21,11 @@ public class FundraisingEvent {
 
     @NotNull
     @Column(name = "balance", nullable = false)
-    private long balance = 0L;
+    private double balance = 0;
 
     public FundraisingEvent() {}
 
-    public FundraisingEvent(Long id, String name, Currency currency, long balance) {
+    public FundraisingEvent(Long id, String name, Currency currency, double balance) {
         this.id = id;
         this.name = name;
         this.currency = currency;
@@ -56,11 +56,11 @@ public class FundraisingEvent {
         this.currency = currency;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

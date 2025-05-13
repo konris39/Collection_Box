@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotNull;
 public class AddMoneyRequest {
     @NotNull
     private Currency currency;
-    private long amount;
+    private double amount;
 
     public AddMoneyRequest(){}
 
-    public AddMoneyRequest(Currency currency, long amount) {
+    public AddMoneyRequest(Currency currency, double amount) {
         this.currency = currency;
         this.amount = amount;
     }
@@ -23,11 +23,11 @@ public class AddMoneyRequest {
         this.currency = currency;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }

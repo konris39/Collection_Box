@@ -4,12 +4,12 @@ import com.example.collectionBox.model.Currency;
 
 public class FinancialReportItem {
     private String eventName;
-    private long amount;
+    private double amount;
     private Currency currency;
 
     public FinancialReportItem(){}
 
-    public FinancialReportItem(String eventName, long amount, Currency currency) {
+    public FinancialReportItem(String eventName, double amount, Currency currency) {
         this.eventName = eventName;
         this.amount = amount;
         this.currency = currency;
@@ -23,11 +23,11 @@ public class FinancialReportItem {
         this.eventName = eventName;
     }
 
-    public long getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
